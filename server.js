@@ -7,6 +7,7 @@ const moviesData = require('./movies-data-small.json');
 
 const app = express();
 
+// minimize morgan logging setting when in production
 const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'common';
 app.use(morgan(morganSetting));
 app.use(helmet());
@@ -50,6 +51,7 @@ function handleGetMovies(req, res) {
 
 app.get('/movie', handleGetMovies)
 
+// hide server errors when in production
 app.use((error, req, res, next) => {
   let response;
   if (process.env.NODE_ENV === 'production') {
